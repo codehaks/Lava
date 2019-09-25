@@ -10,6 +10,7 @@ namespace Portal.Application.Products
         public FoodMapper()
         {
             CreateMap<FoodAddInfo, Food>();
+            CreateMap<Food,FoodInfo>();
             CreateMap<CreateFoodCommand, Food>();
         }
     }

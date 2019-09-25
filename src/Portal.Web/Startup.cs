@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Portal.Application.Foods;
 using Portal.Application.Foods.Commands;
+using Portal.Application.Products;
 using Portal.Identity;
 using Portal.Persistance;
 using System.Reflection;
@@ -35,32 +36,38 @@ namespace Portal.Web
             });
 
             services.AddDefaultIdentity<ApplicationUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<PortalDbContext>();
 
             services.AddTransient<IFoodService, FoodService>();
 
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
+            services.AddRazorPages();
 
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName=="Developer")
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseRouting();
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
         }
     }
 }
