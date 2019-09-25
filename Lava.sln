@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28621.142
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{429AC0F7-80AD-4B0A-8F4A-EA3A14232FA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Web", "src\Portal.Web\Portal.Web.csproj", "{74E1317D-576F-4D31-8596-61672075A338}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2DA306B1-7F16-41C1-863A-0D4D0C821F0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "src\Portal\Portal.csproj", "{542D5C82-8998-44F1-902D-652EFF030DB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74E1317D-576F-4D31-8596-61672075A338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74E1317D-576F-4D31-8596-61672075A338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74E1317D-576F-4D31-8596-61672075A338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74E1317D-576F-4D31-8596-61672075A338}.Release|Any CPU.Build.0 = Release|Any CPU
+		{542D5C82-8998-44F1-902D-652EFF030DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{542D5C82-8998-44F1-902D-652EFF030DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{542D5C82-8998-44F1-902D-652EFF030DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{542D5C82-8998-44F1-902D-652EFF030DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74E1317D-576F-4D31-8596-61672075A338} = {429AC0F7-80AD-4B0A-8F4A-EA3A14232FA7}
+		{542D5C82-8998-44F1-902D-652EFF030DB9} = {429AC0F7-80AD-4B0A-8F4A-EA3A14232FA7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2FD76FA-93AC-442C-9668-201693E4EA08}
+	EndGlobalSection
+EndGlobal

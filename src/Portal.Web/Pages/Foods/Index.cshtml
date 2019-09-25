@@ -1,0 +1,34 @@
+﻿@page
+@model Portal.Web.Pages.Foods.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    int i = 1;
+}
+
+<h1>Foods</h1>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>Name</th>
+            <th>Price</th>
+            <th>Type</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var food in Model.FoodList)
+        {
+            <tr>
+              
+                <td>@food.Name</td>
+                <td>@food.Price.Amount</td>
+                <td>@food.FoodType</td>
+                
+            </tr>
+
+        }
+    </tbody>
+</table>

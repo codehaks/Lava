@@ -1,0 +1,2 @@
+﻿User-agent: *
+Sitemap: https://codehaks.com/sitemap

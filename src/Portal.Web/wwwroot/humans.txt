@@ -1,0 +1,6 @@
+﻿/* TEAM */
+	Founder:Codehaks
+	 
+/* SITE + TECHNOLOGY */
+	Doctype:HTML5
+	Backend : ASP Core 2.2
