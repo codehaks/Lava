@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hellang.Middleware.ProblemDetails;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Portal.Application.Foods;
 using Portal.Application.Foods.Commands;
 using Portal.Application.Products;
+using Portal.Core.Common;
 using Portal.Identity;
 using Portal.Persistance;
 using System.Reflection;
@@ -43,6 +45,12 @@ namespace Portal.Web
 
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
+            
+            services.AddProblemDetails(x =>
+            {
+                x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
+            });
 
             services.AddControllers();
             services.AddRazorPages();
@@ -57,6 +65,7 @@ namespace Portal.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseProblemDetails();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
