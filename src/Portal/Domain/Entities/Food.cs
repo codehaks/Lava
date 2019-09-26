@@ -5,9 +5,11 @@ namespace Portal.Domain.Entities
 {
     public class Food
     {
-        private Food()
+        protected Food()
         {
-
+            Price = new Money(0);
+            Name = string.Empty;
+            Description = string.Empty;
         }
 
         public Food(int id, string name, string description, Money price, FoodType type)

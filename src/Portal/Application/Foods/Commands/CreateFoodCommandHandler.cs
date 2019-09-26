@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using MediatR;
 using Portal.Domain.Entities;
 using Portal.Persistance;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.Foods.Commands
 {
-    public class CreateFoodCommandHandler : IRequestHandler<CreateFoodCommand, int>
+    public class CreateFoodCommandHandler : IRequestHandler<CreateFoodCommand, CreateFoodCommandResult>
     {
         private readonly PortalDbContext _db;
         private readonly IMapper _mapper;
@@ -20,13 +21,29 @@ namespace Portal.Application.Foods.Commands
             _db = db;
             _mapper = mapper;
         }
-        public async Task<int> Handle(CreateFoodCommand request, CancellationToken cancellationToken)
-        {
-            var food = _mapper.Map<CreateFoodCommand, Food>(request);
-            var newFood=_db.Foods.Add(food);
-            await _db.SaveChangesAsync();
 
-            return newFood.Entity.Id;
+        private static ValidationResult Validate(CreateFoodCommand createFoodCommand)
+        {
+            var validator = new CreateFoodCommandValidator();
+            return validator.Validate(createFoodCommand);
+        }
+        public async Task<CreateFoodCommandResult> Handle(CreateFoodCommand request, CancellationToken cancellationToken)
+        {
+            var check = Validate(request);
+            var result = new CreateFoodCommandResult
+            {
+                ValidationResult = check
+            };
+
+            if (check.IsValid)
+            {
+                var food = _mapper.Map<CreateFoodCommand, Food>(request);
+                var newFood = _db.Foods.Add(food);
+                await _db.SaveChangesAsync();
+
+                result.FoodId = newFood.Entity.Id;
+            }
+            return result;
         }
     }
 }
