@@ -57,9 +57,10 @@ namespace Portal.Web
                 x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
             });
 
-            //services.AddFluentValidation();
-            services.AddControllers();//.AddFluentValidation();
-            services.AddRazorPages().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<FoodAddValidator>(); });
+
+            services.AddControllers();
+            services.AddRazorPages()
+                .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<FoodAddValidator>(); });
 
 
         }
