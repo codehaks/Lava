@@ -45,8 +45,10 @@ namespace Portal.Web
 
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
-            
+
             services.AddProblemDetails(x =>
             {
                 x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
@@ -60,7 +62,7 @@ namespace Portal.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.EnvironmentName=="Developer")
+            if (env.EnvironmentName == "Developer")
             {
                 app.UseDeveloperExceptionPage();
             }
