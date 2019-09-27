@@ -16,7 +16,7 @@ namespace Portal.Web.Areas.Admin.Pages.Foods
     {
         private readonly IMediator _mediator;
         private readonly ILogger<IndexModel> _logger;
-
+      
         public IndexModel(IMediator mediator, ILogger<IndexModel> logger)
         {
             _mediator = mediator;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Portal.Application.Foods.Commands
 {
-    class CreateFoodCommandValidator : AbstractValidator<CreateFoodCommand>
+    public class CreateFoodCommandValidator : AbstractValidator<CreateFoodCommand>
     {
         public CreateFoodCommandValidator()
         {

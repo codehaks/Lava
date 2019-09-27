@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Hellang.Middleware.ProblemDetails;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -46,6 +48,7 @@ namespace Portal.Web
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
 
+            services.AddTransient<IValidator<CreateFoodCommand>,CreateFoodCommandValidator>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
 
@@ -54,8 +57,9 @@ namespace Portal.Web
                 x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
             });
 
-            services.AddControllers();
-            services.AddRazorPages();
+            //services.AddFluentValidation();
+            services.AddControllers();//.AddFluentValidation();
+            services.AddRazorPages().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<FoodAddValidator>(); });
 
 
         }
