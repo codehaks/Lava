@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Portal.Core.Common
 {
-    public class CommandResult
+    public abstract class CommandResult
     {
-        public ValidationResult ValidationResult { get; set; }
+        public bool Succeeded { get; }        
     }
 }

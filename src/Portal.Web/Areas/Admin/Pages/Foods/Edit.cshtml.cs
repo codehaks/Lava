@@ -10,6 +10,7 @@ using Portal.Application.Foods.Commands.Edit;
 using Portal.Application.Foods.Models;
 using Portal.Application.Foods.Queries;
 using Portal.Common.Enums;
+using Portal.Common.Values;
 
 namespace Portal.Web.Areas.Admin.Pages.Foods
 {
@@ -17,9 +18,12 @@ namespace Portal.Web.Areas.Admin.Pages.Foods
     public class EditModel : PageModel
     {
         private readonly IMediator _mediator;
-        public EditModel(IMediator mediator)
+        private readonly EditFoodCommandValidator _validationRules;
+
+        public EditModel(IMediator mediator, EditFoodCommandValidator validationRules)
         {
             _mediator = mediator;
+            _validationRules = validationRules;
         }
 
         public int Id { get; set; }
@@ -44,17 +48,32 @@ namespace Portal.Web.Areas.Admin.Pages.Foods
 
         public async Task<IActionResult> OnPost()
         {
-            await _mediator.Send(new EditFoodCommand()
+            var check=_validationRules.Validate(new EditFoodCommand
             {
-                Id = Id,
                 Name = Name,
-                Price = new Common.Values.Money(PriceAmount),
                 Description = Description,
-                FoodType = FoodType
+                Price = new Money(PriceAmount)
             });
 
-            return RedirectToPage("./Index");
+            if (check.IsValid)
+            {
+                await _mediator.Send(new EditFoodCommand()
+                {
+                    Id = Id,
+                    Name = Name,
+                    Price = new Common.Values.Money(PriceAmount),
+                    Description = Description,
+                    FoodType = FoodType
+                });
+
+                return RedirectToPage("./Index");
+            }
+
+            
+            return Page();
+           
         }
 
+       
     }
 }

@@ -24,7 +24,9 @@ namespace Portal.Application.Foods.Commands.Edit
             var food = new Food(request.Id, request.Name, request.Description, request.Price, request.FoodType);
 
             //_db.Entry(food.Price).State = EntityState.Modified;
-            _db.Entry(food).State = EntityState.Modified;
+            //_db.Entry(food).State = EntityState.Modified;
+
+            _db.Update(food);
 
             await Task.CompletedTask;
 
