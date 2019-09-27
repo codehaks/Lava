@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hellang.Middleware.ProblemDetails;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -51,6 +52,7 @@ namespace Portal.Web
             //services.AddTransient<IValidator<CreateFoodCommand>,CreateFoodCommandValidator>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
+            services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
 
             services.AddProblemDetails(x =>
             {

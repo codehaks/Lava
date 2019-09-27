@@ -39,7 +39,7 @@ namespace Portal.Application.Foods.Commands
             {
                 var food = _mapper.Map<CreateFoodCommand, Food>(request);
                 var newFood = _db.Foods.Add(food);
-                await _db.SaveChangesAsync();
+                //await _db.SaveChangesAsync();
 
                 result.FoodId = newFood.Entity.Id;
             }
