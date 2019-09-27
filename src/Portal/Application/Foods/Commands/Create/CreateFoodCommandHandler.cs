@@ -22,20 +22,20 @@ namespace Portal.Application.Foods.Commands
             _mapper = mapper;
         }
 
-        private static ValidationResult Validate(CreateFoodCommand createFoodCommand)
-        {
-            var validator = new CreateFoodCommandValidator();
-            return validator.Validate(createFoodCommand);
-        }
+        //private static ValidationResult Validate(CreateFoodCommand createFoodCommand)
+        //{
+        //    var validator = new CreateFoodCommandValidator();
+        //    return validator.Validate(createFoodCommand);
+        //}
         public async Task<CreateFoodCommandResult> Handle(CreateFoodCommand request, CancellationToken cancellationToken)
         {
-            var check = Validate(request);
+            //var check = Validate(request);
             var result = new CreateFoodCommandResult
             {
-                ValidationResult = check
+                //ValidationResult = check
             };
 
-            if (check.IsValid)
+            //if (check.IsValid)
             {
                 var food = _mapper.Map<CreateFoodCommand, Food>(request);
                 var newFood = _db.Foods.Add(food);

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Portal.Application.Foods.Commands.Edit
 {
-    public class EditFoodCommandValiadator : AbstractValidator<CreateFoodCommand>
+    public class EditFoodCommandValidator : AbstractValidator<EditFoodCommand>
     {
-        public EditFoodCommandValiadator()
+        public EditFoodCommandValidator()
         {
             RuleFor(u => u.Name).NotEmpty().WithMessage("Food name is Required.");
             RuleFor(u => u.Price.Amount).GreaterThan(0).WithMessage("Food can not be free.");
