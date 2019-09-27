@@ -9,6 +9,7 @@ namespace Portal.Application.Foods.Commands.Edit
 {
     public class EditFoodCommand:IRequest<EditFoodCommandResult>
     {
+        public int Id { get; set; }
         public Money Price { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

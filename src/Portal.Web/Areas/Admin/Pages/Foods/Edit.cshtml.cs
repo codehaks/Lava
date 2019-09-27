@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portal.Application.Foods;
+using Portal.Application.Foods.Commands.Edit;
 using Portal.Application.Foods.Models;
 using Portal.Application.Foods.Queries;
 using Portal.Common.Enums;
@@ -43,14 +44,14 @@ namespace Portal.Web.Areas.Admin.Pages.Foods
 
         public async Task<IActionResult> OnPost()
         {
-            //await _foodService.Update(new FoodEditInfo()
-            //{
-            //    Id = Id,
-            //    Name = Name,
-            //    Price = new Common.Values.Money(PriceAmount),
-            //    Description = Description,
-            //    FoodType = FoodType
-            //});
+            await _mediator.Send(new EditFoodCommand()
+            {
+                Id = Id,
+                Name = Name,
+                Price = new Common.Values.Money(PriceAmount),
+                Description = Description,
+                FoodType = FoodType
+            });
 
             return RedirectToPage("./Index");
         }

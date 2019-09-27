@@ -1,4 +1,7 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Portal.Domain.Entities;
+using Portal.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +12,26 @@ namespace Portal.Application.Foods.Commands.Edit
 {
     public class EditFoodCommandHandler : IRequestHandler<EditFoodCommand, EditFoodCommandResult>
     {
-        public Task<EditFoodCommandResult> Handle(EditFoodCommand request, CancellationToken cancellationToken)
+        private readonly PortalDbContext _db;
+
+        public EditFoodCommandHandler(PortalDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+
+        public async Task<EditFoodCommandResult> Handle(EditFoodCommand request, CancellationToken cancellationToken)
+        {
+            var food = new Food(request.Id, request.Name, request.Description, request.Price, request.FoodType);
+
+            //_db.Entry(food.Price).State = EntityState.Modified;
+            _db.Entry(food).State = EntityState.Modified;
+
+            await Task.CompletedTask;
+
+            return new EditFoodCommandResult
+            {
+                ValidationResult = null
+            };
         }
     }
 }
