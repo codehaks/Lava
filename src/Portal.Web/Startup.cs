@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Portal.Application.Foods;
 using Portal.Application.Foods.Commands;
+using Portal.Application.Foods.Commands.Create;
 using Portal.Application.Foods.Commands.Edit;
 using Portal.Application.Products;
 using Portal.Core.Common;
@@ -50,9 +51,12 @@ namespace Portal.Web
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
 
+        
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
             services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CreateFoodValidateBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,CreateFoodCommandResult>), typeof(CreateFoodSingleNameValidator));
 
             services.AddProblemDetails(x =>
             {
