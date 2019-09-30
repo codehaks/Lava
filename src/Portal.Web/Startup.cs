@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Portal.Application.Common;
 using Portal.Application.Foods;
 using Portal.Application.Foods.Commands;
 using Portal.Application.Products;
@@ -40,6 +42,9 @@ namespace Portal.Web
                 .AddEntityFrameworkStores<PortalDbContext>();
 
             services.AddTransient<IFoodService, FoodService>();
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitBehavior<,>));
 
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
