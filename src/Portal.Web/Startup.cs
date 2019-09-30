@@ -50,8 +50,6 @@ namespace Portal.Web
             services.AddMediatR(typeof(CreateFoodCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(FoodMapper).GetTypeInfo().Assembly);
 
-            //services.AddTransient<IValidator<CreateFoodCommand>,CreateFoodCommandValidator>();
-            //services.AddTransient<IValidator<EditFoodCommand>, EditFoodCommandValidator>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
             services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
