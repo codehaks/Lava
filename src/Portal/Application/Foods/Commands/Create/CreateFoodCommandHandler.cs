@@ -22,28 +22,19 @@ namespace Portal.Application.Foods.Commands
             _mapper = mapper;
         }
 
-        //private static ValidationResult Validate(CreateFoodCommand createFoodCommand)
-        //{
-        //    var validator = new CreateFoodCommandValidator();
-        //    return validator.Validate(createFoodCommand);
-        //}
         public async Task<CreateFoodCommandResult> Handle(CreateFoodCommand request, CancellationToken cancellationToken)
         {
-            //var check = Validate(request);
-            var result = new CreateFoodCommandResult
-            {
-                //ValidationResult = check
-            };
 
-            //if (check.IsValid)
-            {
-                var food = _mapper.Map<CreateFoodCommand, Food>(request);
-                var newFood = _db.Foods.Add(food);
-                //await _db.SaveChangesAsync();
+            var result = new CreateFoodCommandResult();
+            var food = _mapper.Map<CreateFoodCommand, Food>(request);
+            var newFood = _db.Foods.Add(food);
 
-                result.FoodId = newFood.Entity.Id;
-            }
+            result.FoodId = newFood.Entity.Id;
+
+            await Task.CompletedTask;
             return result;
         }
+
+
     }
 }
