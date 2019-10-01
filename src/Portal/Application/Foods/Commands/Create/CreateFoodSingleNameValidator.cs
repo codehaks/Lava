@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Portal.Application.Foods.Commands.Create
 {
     public class CreateFoodSingleNameValidator :
-        IPipelineBehavior<CreateFoodCommand, CreateFoodCommandResult>
+        IPipelineBehavior<CreateFoodCommand, OperationResult<CreateFoodCommandResult>>
     {
         private readonly PortalDbContext _db;
 
@@ -21,14 +21,14 @@ namespace Portal.Application.Foods.Commands.Create
             _db = db;
         }
 
-        public async Task<CreateFoodCommandResult> Handle(CreateFoodCommand request, CancellationToken cancellationToken, RequestHandlerDelegate<CreateFoodCommandResult> next)
+        public async Task<OperationResult<CreateFoodCommandResult>> Handle(CreateFoodCommand request, CancellationToken cancellationToken, RequestHandlerDelegate<OperationResult<CreateFoodCommandResult>> next)
         {
 
             var any = _db.Foods.Any(f => f.Name.Trim() == request.Name.Trim());
             if (any)
             {
-                var result = new CreateFoodCommandResult();
-                result.BuildFailure("Food already exists");
+
+                var result = OperationResult<CreateFoodCommandResult>.BuildFailure("Food name already exists");
 
                 return result;
             }

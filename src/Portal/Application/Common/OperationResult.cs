@@ -4,40 +4,33 @@ using System.Text;
 
 namespace Portal.Application.Common
 {
-    public class OperationResult : IOperationResult
+    public class OperationResult<TResult>
     {
-        //public OperationResult(bool success,string errorMessage,Exception ex)
-        //{
-        //    Success = success;
-        //    ErrorMessage = errorMessage;
-        //    Exception = ex;
-        //}
-        public bool Success { get; private set; }
+        public TResult Result { get; private set; }
 
+        public bool Success { get; private set; }
         public string? ErrorMessage { get; private set; }
         public Exception? Exception { get; private set; }
 
-        public void BuildSuccessResult()
+        public static OperationResult<TResult> BuildSuccessResult(TResult result)
         {
-            Success = true;
+            return new OperationResult<TResult> { Success = true,Result=result };
+
         }
 
-        public void BuildFailure(string errorMessage)
+        public static OperationResult<TResult> BuildFailure(string errorMessage)
         {
-            Success = false;
-            ErrorMessage = errorMessage;
+            return new OperationResult<TResult> { Success = false, ErrorMessage = errorMessage };
+
         }
-        public void BuildFailure(Exception ex)
+        public static OperationResult<TResult> BuildFailure(Exception ex)
         {
-            Success = false;
-            Exception = ex;
+            return new OperationResult<TResult> { Success = false, Exception = ex };
         }
 
-        public void BuildFailure(Exception ex, string errorMessage)
+        public static OperationResult<TResult> BuildFailure(Exception ex, string errorMessage)
         {
-            Success = false;
-            Exception = ex;
-            ErrorMessage = errorMessage;
+            return new OperationResult<TResult> { Success = false, Exception = ex, ErrorMessage = errorMessage };
         }
 
     }

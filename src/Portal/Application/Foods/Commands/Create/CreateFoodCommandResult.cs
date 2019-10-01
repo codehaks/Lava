@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Portal.Application.Foods.Commands
 {
-    public class CreateFoodCommandResult: OperationResult, IValidationResult
+    public class CreateFoodCommandResult: IValidationResult
     {
         public ValidationResult ValidationResult { get; set; }
         public int FoodId { get; set; }

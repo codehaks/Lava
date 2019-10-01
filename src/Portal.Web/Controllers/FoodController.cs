@@ -31,13 +31,13 @@ namespace Portal.Web.Controllers
                 Price = new Common.Values.Money(model.PriceAmount)
             });
 
-            if (result.ValidationResult.IsValid)
+            if (result.Result.ValidationResult.IsValid)
             {
                 return Ok(result);
             }
             else
             {
-                return BadRequest(result.ValidationResult.ToString());
+                return BadRequest(result.Result.ValidationResult.ToString());
             }
 
         }

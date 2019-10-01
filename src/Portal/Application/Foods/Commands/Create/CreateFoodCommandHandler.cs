@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
+using Portal.Application.Common;
 using Portal.Domain.Entities;
 using Portal.Persistance;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.Foods.Commands
 {
-    public class CreateFoodCommandHandler : IRequestHandler<CreateFoodCommand, CreateFoodCommandResult>
+    public class CreateFoodCommandHandler : IRequestHandler<CreateFoodCommand, OperationResult<CreateFoodCommandResult>>
     {
         private readonly PortalDbContext _db;
         private readonly IMapper _mapper;
@@ -22,15 +23,20 @@ namespace Portal.Application.Foods.Commands
             _mapper = mapper;
         }
 
-        public async Task<CreateFoodCommandResult> Handle(CreateFoodCommand request, CancellationToken cancellationToken)
+        public async Task<OperationResult<CreateFoodCommandResult>> Handle(CreateFoodCommand request, CancellationToken cancellationToken)
         {
 
-            var result = new CreateFoodCommandResult();
+
             var food = _mapper.Map<CreateFoodCommand, Food>(request);
             var newFood = _db.Foods.Add(food);
 
-            result.FoodId = newFood.Entity.Id;
 
+
+            var result = OperationResult<CreateFoodCommandResult>
+                .BuildSuccessResult(new CreateFoodCommandResult
+                {
+                    FoodId = newFood.Entity.Id
+                });
             await Task.CompletedTask;
             return result;
         }

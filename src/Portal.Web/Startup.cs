@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Portal.Application.Common;
 using Portal.Application.Foods;
 using Portal.Application.Foods.Commands;
 using Portal.Application.Foods.Commands.Create;
@@ -55,7 +56,7 @@ namespace Portal.Web
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
             services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
-            services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,CreateFoodCommandResult>), typeof(CreateFoodSingleNameValidator));
+            services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,OperationResult<CreateFoodCommandResult>>), typeof(CreateFoodSingleNameValidator));
 
             services.AddProblemDetails(x =>
             {
