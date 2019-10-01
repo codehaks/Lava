@@ -7,6 +7,6 @@ namespace Portal.Core.Common
 {
     public abstract class CommandResult
     {
-        public bool Succeeded { get; }        
+        public bool Succeeded { get; set; }        
     }
 }

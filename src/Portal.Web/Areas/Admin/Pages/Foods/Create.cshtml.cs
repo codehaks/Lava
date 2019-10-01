@@ -39,7 +39,7 @@ namespace Portal.Web.Areas.Admin.Pages.Foods
                 return Page();
             }
 
-            await _mediator.Send(new CreateFoodCommand
+            var result=await _mediator.Send(new CreateFoodCommand
             {
                 Price = new Money(PriceAmount),
                 Description = Description,
@@ -47,8 +47,16 @@ namespace Portal.Web.Areas.Admin.Pages.Foods
                 Name = Name
             });
 
-
-            return RedirectToPage("./index");
+            if (result.Success)
+            {
+                return RedirectToPage("./index");
+            }
+            else
+            {
+                TempData["message"] = result.ErrorMessage;
+                return Page();
+            }
+            
         }
     }
 }
