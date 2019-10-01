@@ -55,7 +55,6 @@ namespace Portal.Web
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
             services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CreateFoodValidateBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,CreateFoodCommandResult>), typeof(CreateFoodSingleNameValidator));
 
             services.AddProblemDetails(x =>
