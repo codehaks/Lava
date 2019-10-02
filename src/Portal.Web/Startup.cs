@@ -58,10 +58,10 @@ namespace Portal.Web
             services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
             services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,OperationResult<CreateFoodCommandResult>>), typeof(CreateFoodSingleNameValidator));
 
-            services.AddProblemDetails(x =>
-            {
-                x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
-            });
+            //services.AddProblemDetails(x =>
+            //{
+            //    x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
+            //});
 
 
             services.AddControllers();
@@ -78,7 +78,7 @@ namespace Portal.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseProblemDetails();
+            //app.UseProblemDetails();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
