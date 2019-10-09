@@ -25,6 +25,7 @@ namespace Portal.Persistance
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //builder.UseHiLo("HiLoSeq");
             builder.ApplyConfiguration(new FoodConfig());
             base.OnModelCreating(builder);
         }

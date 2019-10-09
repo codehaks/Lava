@@ -1,13 +1,20 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Portal.Persistance.Migrations
+namespace Portal.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateSequence(
+                name: "EntityFrameworkHiLoSequence",
+                incrementBy: 10);
+
+            migrationBuilder.CreateSequence(
+                name: "HiLoSeq",
+                incrementBy: 10);
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -51,9 +58,8 @@ namespace Portal.Persistance.Migrations
                 name: "Foods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Price_Amount = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    Price_Amount = table.Column<int>(nullable: true),
                     Name = table.Column<string>(maxLength: 25, nullable: false),
                     Description = table.Column<string>(maxLength: 1000, nullable: false),
                     FoodType = table.Column<int>(nullable: false)
@@ -64,11 +70,41 @@ namespace Portal.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    FoodId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false),
+                    State = table.Column<int>(nullable: false),
+                    TimeCreated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false),
+                    State = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    TimeCreated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -88,8 +124,7 @@ namespace Portal.Persistance.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -236,10 +271,22 @@ namespace Portal.Persistance.Migrations
                 name: "Foods");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropSequence(
+                name: "EntityFrameworkHiLoSequence");
+
+            migrationBuilder.DropSequence(
+                name: "HiLoSeq");
         }
     }
 }
