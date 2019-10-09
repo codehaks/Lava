@@ -38,7 +38,7 @@ namespace Portal.Core.Common
                     errorBuilder.AppendLine(error.ErrorMessage);
                 }
 
-                //throw new Exception(errorBuilder.ToString());
+                throw new Exception(errorBuilder.ToString());
 
                 //var result = OperationResult<TResponse>.BuildFailure(errorBuilder.ToString());
                 //return result;

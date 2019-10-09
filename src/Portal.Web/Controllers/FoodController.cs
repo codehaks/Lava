@@ -33,7 +33,7 @@ namespace Portal.Web.Controllers
 
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Result.FoodId);
             }
             else
             {
