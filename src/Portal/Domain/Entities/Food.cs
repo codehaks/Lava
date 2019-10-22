@@ -12,12 +12,12 @@ namespace Portal.Domain.Entities
             Description = string.Empty;
         }
 
-        public Food(int id, string name, string description, Money price, FoodType type)
+        public Food(int id,string name, Money price, FoodType type)
         {
             Name = name;
-            Description = description;
             Price = price;
             FoodType = type;
+            Description = string.Empty;
             Id = id;
         }
 
@@ -28,16 +28,27 @@ namespace Portal.Domain.Entities
         public string Description { get; private set; }
         public FoodType FoodType { get; private set; }
 
-        public Food WithType(FoodType type)
+        public void AddDescription(string description)
         {
-            return new Food(this.Id, this.Name, this.Description, this.Price, type);
+            if (description.Length < 500)
+            {
+                Description = description;
+            }
+            else
+            {
+                throw new System.Exception("Description is too long!");
+            }
 
         }
 
-        public Food WithPrice(Money price)
+        public void WithType(FoodType type)
         {
-            return new Food(this.Id, this.Name, this.Description, price, this.FoodType);
+            FoodType = type;
+        }
 
+        public void WithPrice(Money price)
+        {
+            Price = price;
         }
     }
 }

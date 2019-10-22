@@ -54,7 +54,8 @@ namespace Portal.Application.Foods
 
         public async Task Update(FoodEditInfo foodEditInfo)
         {
-            var food = new Food(foodEditInfo.Id, foodEditInfo.Name, foodEditInfo.Description, foodEditInfo.Price, foodEditInfo.FoodType);
+            var food = new Food(foodEditInfo.Id, foodEditInfo.Name, foodEditInfo.Price, foodEditInfo.FoodType);
+            food.AddDescription(foodEditInfo.Description);
 
             _db.Entry(food.Price).State = EntityState.Modified;
             _db.Entry(food).State = EntityState.Modified;

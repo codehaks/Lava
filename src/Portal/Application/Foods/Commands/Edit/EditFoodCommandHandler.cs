@@ -21,10 +21,8 @@ namespace Portal.Application.Foods.Commands.Edit
 
         public async Task<EditFoodCommandResult> Handle(EditFoodCommand request, CancellationToken cancellationToken)
         {
-            var food = new Food(request.Id, request.Name, request.Description, request.Price, request.FoodType);
-
-            //_db.Entry(food.Price).State = EntityState.Modified;
-            //_db.Entry(food).State = EntityState.Modified;
+            var food = new Food(request.Id, request.Name, request.Price, request.FoodType);
+            food.AddDescription(request.Description);
 
             _db.Update(food);
 
