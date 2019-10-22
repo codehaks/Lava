@@ -30,8 +30,6 @@ namespace Portal.Application.Foods.Commands
             var food = _mapper.Map<CreateFoodCommand, Food>(request);
             var newFood = _db.Foods.Add(food);
 
-
-
             var result = OperationResult<CreateFoodCommandResult>
                 .BuildSuccessResult(new CreateFoodCommandResult
                 {
