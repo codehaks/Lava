@@ -33,24 +33,6 @@ namespace Portal.Web
 
                     webBuilder.UseStartup<Startup>();
                 });
-        //    public static void Main(string[] args)
-        //    {
-        //        var host = CreateWebHostBuilder(args).Build();
-
-        //        host.Run();
-        //    }
-
-        //    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        //        WebHost.CreateDefaultBuilder(args)
-        //        //.UseServiceProviderFactory()
-
-        //            .UseSerilog((hostingContext, logger) =>
-        //            {
-        //                logger.WriteTo.Console();
-        //                logger.WriteTo.SQLite(hostingContext.Configuration.GetSection("Logging:Sqlite").Value);
-        //            })
-        //        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-        //            .UseStartup<Startup>();
-        //}
+       
     }
 }
