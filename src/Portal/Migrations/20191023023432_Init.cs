@@ -11,10 +11,6 @@ namespace Portal.Migrations
                 name: "EntityFrameworkHiLoSequence",
                 incrementBy: 10);
 
-            migrationBuilder.CreateSequence(
-                name: "HiLoSeq",
-                incrementBy: 10);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -70,41 +66,11 @@ namespace Portal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    FoodId = table.Column<int>(nullable: false),
-                    Count = table.Column<int>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
-                    State = table.Column<int>(nullable: false),
-                    TimeCreated = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Payments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: false),
-                    State = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    TimeCreated = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -124,7 +90,8 @@ namespace Portal.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -271,12 +238,6 @@ namespace Portal.Migrations
                 name: "Foods");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Payments");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -284,9 +245,6 @@ namespace Portal.Migrations
 
             migrationBuilder.DropSequence(
                 name: "EntityFrameworkHiLoSequence");
-
-            migrationBuilder.DropSequence(
-                name: "HiLoSeq");
         }
     }
 }

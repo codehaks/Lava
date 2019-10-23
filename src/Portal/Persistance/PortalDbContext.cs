@@ -15,7 +15,7 @@ namespace Portal.Persistance
 
         public DbSet<Food> Foods { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        //public DbSet<Payment> Payments { get; set; }
 
         public override int SaveChanges()
         {
