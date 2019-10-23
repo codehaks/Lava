@@ -26,7 +26,7 @@ namespace Portal.Application.OrderApplication.Commands
         public async Task<OperationResult<CreateOrderCommandResult>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = new Order(request.UserId, request.FoodId, request.Count, request.UnitPrice);
-            //_db.Orders.Add(order);
+            _db.Orders.Add(order);
 
             var result = OperationResult<CreateOrderCommandResult>
                .BuildSuccessResult(new CreateOrderCommandResult

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portal.Application.Foods.Models;
 using Portal.Application.Foods.Queries;
+using Portal.Application.OrderApplication.Commands;
 
 namespace Portal.Web
 {
@@ -19,10 +20,11 @@ namespace Portal.Web
             _mediator = mediator;
         }
 
+        [BindProperty]
         public FoodInfo Food { get; set; }
 
         [BindProperty]
-        public int FoodCount { get; set; }
+        public byte FoodCount { get; set; }
 
         public async Task<IActionResult> OnGet(int foodId)
         {
@@ -38,9 +40,16 @@ namespace Portal.Web
             return Page();
         }
 
-        //public async Task<IActionResult> OnPost()
-        //{
+        public async Task<IActionResult> OnPost()
+        {
+           var result= await _mediator.Send(new CreateOrderCommand{
+                Count=FoodCount,
+                FoodId=Food.Id,
+                UnitPrice=Food.Price,
+                UserId="1"
+            });
 
-        //}
+            return RedirectToPage("/index");
+        }
     }
 }
