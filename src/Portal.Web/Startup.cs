@@ -66,6 +66,7 @@ namespace Portal.Web
 
             services.AddControllers();
             services.AddRazorPages()
+                .AddRazorRuntimeCompilation()
                 .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<FoodAddValidator>(); });
 
 

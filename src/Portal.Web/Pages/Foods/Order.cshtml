@@ -1,0 +1,32 @@
+﻿@page
+@model Portal.Web.OrderModel
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h1>Order</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Food.Name"></label>
+        <input asp-for="Food.Name" type="text" disabled class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Food.Price"></label>
+        <input asp-for="Food.Price.Amount" type="text" disabled class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Food.FoodType"></label>
+        <input asp-for="Food.FoodType" type="text" disabled class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FoodCount"></label>
+        <input asp-for="FoodCount" type="text" class="form-control">
+    </div>
+
+    <button class="btn btn-outline-primary btn-lg">Submit</button>
+
+</form>
