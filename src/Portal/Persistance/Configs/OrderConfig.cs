@@ -17,7 +17,7 @@ namespace Portal.Persistance.Configs
 
             builder.OwnsOne(f => f.UnitPrice);
 
-            builder.OwnsOne(f => f.TotalPrice);
+            builder.Ignore(f => f.TotalPrice);
         }
     }
 }

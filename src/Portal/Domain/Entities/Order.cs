@@ -37,11 +37,11 @@ namespace Portal.Domain.Entities
         }
         public Order(string userId, int foodId, byte count, Money unitPrice)
         {
-            if (count<=0 )
+            if (count <= 0)
             {
                 throw new Exception("Order is empty");
             }
-            if (count>10)
+            if (count > 10)
             {
                 throw new Exception("Too much food");
             }
@@ -57,11 +57,15 @@ namespace Portal.Domain.Entities
         public int Count { get; private set; }
 
         public Money UnitPrice { get; }
+
         public Money TotalPrice
         {
             get
-            { return new Money(Count * UnitPrice.Amount); }
-        }
+            {
+                return new Money(Count * UnitPrice.Amount);
+            }
+
+           }
 
         public OrderState State { get; set; }
 
