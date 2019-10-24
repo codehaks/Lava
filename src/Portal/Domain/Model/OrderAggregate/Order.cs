@@ -1,34 +1,13 @@
-﻿using Portal.Common.Kernel;
-using Portal.Common.Values;
+﻿using Portal.Common.Values;
 using Portal.Core.Contracts;
 using Portal.Core.Enums;
+using Portal.Domain.Common;
+using Portal.Domain.Entities.OrderAggregate.Specs;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Portal.Domain.Entities
 {
-    //public class FoodCount:ValueObject
-    //{
-    //    private FoodCount()
-    //    {
-
-    //    }
-    //    public FoodCount(byte value)
-    //    {
-    //        if (value > 0)
-    //        {
-    //            throw new Exception("Too much food!");
-    //        }
-    //        Value = value;
-    //    }
-    //    public byte Value { get; }
-
-    //    protected override IEnumerable<object> GetAtomicValues()
-    //    {
-    //        yield return Value;
-    //    }
-    //}
     public class Order : ITimeCreated
     {
         private Order()
@@ -71,6 +50,19 @@ namespace Portal.Domain.Entities
         public OrderState State { get; set; }
 
         public DateTime TimeCreated { get; set; }
+
+        public ISpecification<Order> CanBeCanceledBeforeCooking = new CanBeCanceledBeforeCooking();
+        public void Cancel()
+        {
+            if (CanBeCanceledBeforeCooking.IsSatisfiedBy(this))
+            {
+                // cancel order
+            }
+            else
+            {
+                throw new Exception("Can not be canceled : Cooking started!");
+            }
+        }
 
     }
 }

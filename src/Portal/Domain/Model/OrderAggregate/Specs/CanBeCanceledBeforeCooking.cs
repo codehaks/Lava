@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Portal.Domain.Entities.OrderAggregate.Specs
 {
-    class NoOrderCancelingAfterCookingState : ISpecification<Order>
+    class CanBeCanceledBeforeCooking : ISpecification<Order>
     {
         public bool IsSatisfiedBy(Order Entity)
         {
