@@ -52,9 +52,9 @@ namespace Portal.Domain.Entities
 
         public DateTime TimeCreated { get; set; }
 
-        public bool IsPremiumUser { get; private set; }
+        public bool IsPremiumUser;
 
-        public void Cancel()
+        private bool CanBeCanceled()
         {
             var canBeCanceledBeforeCooking = new CanBeCanceledBeforeCooking();
             //var permiumUserCanceling = new PremiumUserCanCancelBeforeDelivery();
@@ -62,12 +62,29 @@ namespace Portal.Domain.Entities
 
             if (canBeCanceledBeforeCooking.IsSatisfiedBy(this))
             {
-                // cancel order
+                return true;
             }
             else
             {
                 throw new Exception("Can not be canceled : Cooking started!");
             }
+        }
+
+        public void Cancel()
+        {
+            if (CanBeCanceled())
+            {
+                // Cancel
+            }
+            else
+            {
+                throw new Exception("Can not cancel order!");
+            }
+        }
+
+        public OrderSnapshot GetSnapshot()
+        {
+            return new OrderSnapshot(Id, UserId, FoodId, Count, UnitPrice);
         }
 
     }
