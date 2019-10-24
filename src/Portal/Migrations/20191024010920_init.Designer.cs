@@ -10,8 +10,8 @@ using Portal.Persistance;
 namespace Portal.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20191023023432_Init")]
-    partial class Init
+    [Migration("20191024010920_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,6 +186,28 @@ namespace Portal.Migrations
                     b.ToTable("Foods");
                 });
 
+            modelBuilder.Entity("Portal.Domain.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:HiLoSequenceName", "EntityFrameworkHiLoSequence")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Portal.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -318,6 +340,25 @@ namespace Portal.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("FoodId");
+                        });
+                });
+
+            modelBuilder.Entity("Portal.Domain.Entities.Order", b =>
+                {
+                    b.OwnsOne("Portal.Common.Values.Money", "UnitPrice", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Amount")
+                                .HasColumnType("int");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
                         });
                 });
 #pragma warning restore 612, 618
