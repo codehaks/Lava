@@ -26,6 +26,9 @@ namespace Portal.Web
         [BindProperty]
         public byte FoodCount { get; set; }
 
+        [BindProperty]
+        public string CoupanCode { get; set; }
+
         public async Task<IActionResult> OnGet(int foodId)
         {
             var food=await _mediator.Send(new GetFoodQuery

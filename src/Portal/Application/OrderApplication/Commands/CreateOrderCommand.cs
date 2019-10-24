@@ -14,6 +14,7 @@ namespace Portal.Application.OrderApplication.Commands
 
         public int FoodId { get; set; }
         public byte Count { get; set; }
+        public string CoupanCode { get; set; }
 
         public Money UnitPrice { get; set; }
     }
