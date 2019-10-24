@@ -3,6 +3,7 @@ using Portal.Core.Contracts;
 using Portal.Core.Enums;
 using Portal.Domain.Common;
 using Portal.Domain.Entities.OrderAggregate.Specs;
+using Portal.Domain.Model.OrderAggregate.Specs;
 using System;
 using System.Text;
 
@@ -45,16 +46,21 @@ namespace Portal.Domain.Entities
                 return new Money(Count * UnitPrice.Amount);
             }
 
-           }
+        }
 
         public OrderState State { get; set; }
 
         public DateTime TimeCreated { get; set; }
 
-        public ISpecification<Order> CanBeCanceledBeforeCooking = new CanBeCanceledBeforeCooking();
+        public bool IsPremiumUser { get; private set; }
+
         public void Cancel()
         {
-            if (CanBeCanceledBeforeCooking.IsSatisfiedBy(this))
+            var canBeCanceledBeforeCooking = new CanBeCanceledBeforeCooking();
+            //var permiumUserCanceling = new PremiumUserCanCancelBeforeDelivery();
+            //var specs = new OrSpecification<Order>(spec1, spec2);
+
+            if (canBeCanceledBeforeCooking.IsSatisfiedBy(this))
             {
                 // cancel order
             }
