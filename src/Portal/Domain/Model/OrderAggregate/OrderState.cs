@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Portal.Core.Enums
 {
-    public enum PaymentType
+    public enum OrderState
     {
-        Cache = 1,
-        Credit = 2,
-        BankGateway = 3
+        New = 0,
+        Cooking = 1,
+        OnTheWay = 2,
+        Delivered = 3
     }
 }
