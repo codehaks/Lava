@@ -49,6 +49,7 @@ namespace Portal.Domain.Entities
             FoodId = foodId;
             Count = count;
             UnitPrice = unitPrice;
+            TimeCreated = DateTime.Now;
         }
         public int Id { get; set; }
         public string UserId { get; }
