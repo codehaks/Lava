@@ -28,6 +28,8 @@ namespace Portal.Persistance
             //builder.UseHiLo("HiLoSeq");
             builder.ApplyConfiguration(new FoodConfig());
             builder.ApplyConfiguration(new OrderConfig());
+            builder.ApplyConfiguration(new CoupanConfig());
+
             base.OnModelCreating(builder);
         }
     }

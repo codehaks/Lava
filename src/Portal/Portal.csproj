@@ -5,6 +5,11 @@
     <!--<nullable>enable</nullable>-->
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20191024013542_CoupanTable.cs" />
+    <Compile Remove="Migrations\20191024013542_CoupanTable.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Folder Include="Application\OrderApplication\Queries\" />
