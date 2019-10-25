@@ -5,7 +5,7 @@ namespace Portal.Domain.Entities
 {
     public class Food
     {
-        protected Food()
+        private Food()
         {
             Price = new Money(0);
             Name = string.Empty;
