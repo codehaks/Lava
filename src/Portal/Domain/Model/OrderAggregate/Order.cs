@@ -57,10 +57,10 @@ namespace Portal.Domain.Entities
         private bool CanBeCanceled()
         {
             var canBeCanceledBeforeCooking = new CanBeCanceledBeforeCooking();
-            //var permiumUserCanceling = new PremiumUserCanCancelBeforeDelivery();
-            //var specs = new OrSpecification<Order>(spec1, spec2);
+            var permiumUserCanceling = new PremiumUserCanCancelBeforeDelivery();
+            var specs = new OrSpecification<Order>(canBeCanceledBeforeCooking, permiumUserCanceling);
 
-            if (canBeCanceledBeforeCooking.IsSatisfiedBy(this))
+            if (specs.IsSatisfiedBy(this))
             {
                 return true;
             }

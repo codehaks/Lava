@@ -28,9 +28,9 @@ namespace Portal.Application.Foods.Commands
 
 
             var food = _mapper.Map<CreateFoodCommand, Food>(request);
-            var newFood = _db.Foods.Add(food);
+            var newFood =await _db.Foods.AddAsync(food);
 
-
+            //_db.SaveChangesAsync()
 
             var result = OperationResult<CreateFoodCommandResult>
                 .BuildSuccessResult(new CreateFoodCommandResult
