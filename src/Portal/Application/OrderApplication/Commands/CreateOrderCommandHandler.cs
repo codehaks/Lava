@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Portal.Application.Common;
+using Portal.Application.OrderApplication.Notifications;
 using Portal.Domain.Entities;
 using Portal.Persistance;
 using System;
@@ -15,18 +16,20 @@ namespace Portal.Application.OrderApplication.Commands
         IRequestHandler<CreateOrderCommand, OperationResult<CreateOrderCommandResult>>
     {
         private readonly PortalDbContext _db;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public CreateOrderCommandHandler(PortalDbContext db, IMapper mapper)
+        public CreateOrderCommandHandler(PortalDbContext db, IMediator mediator)
         {
             _db = db;
-            _mapper = mapper;
+            _mediator = mediator;
         }
 
         public async Task<OperationResult<CreateOrderCommandResult>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = new Order(request.UserId, request.FoodId, request.Count, request.UnitPrice);
             _db.Orders.Add(order);
+
+            await _mediator.Publish(new OrderCreatedNotification());
 
             var result = OperationResult<CreateOrderCommandResult>
                .BuildSuccessResult(new CreateOrderCommandResult
