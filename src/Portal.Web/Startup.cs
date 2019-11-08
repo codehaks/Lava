@@ -19,7 +19,9 @@ using Portal.Application.Foods.Commands.Create;
 using Portal.Application.Foods.Commands.Edit;
 using Portal.Application.Products;
 using Portal.Core.Common;
+using Portal.Domain.Model.OrderAggregate;
 using Portal.Identity;
+using Portal.Infrastructure.Repository;
 using Portal.Persistance;
 using System.Reflection;
 
@@ -55,9 +57,9 @@ namespace Portal.Web
         
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
-            services.AddTransient(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
+            services.AddScoped(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
             services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,OperationResult<CreateFoodCommandResult>>), typeof(CreateFoodSingleNameValidator));
-
+            services.AddScoped<IOrderRepository, OrderRepository>();
             //services.AddProblemDetails(x =>
             //{
             //    x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));

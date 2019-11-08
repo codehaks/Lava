@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Infrastructure\Persistance\Data\IdentityInit.cs" />
     <Compile Remove="Migrations\20191024013542_CoupanTable.cs" />
     <Compile Remove="Migrations\20191024013542_CoupanTable.Designer.cs" />
   </ItemGroup>
@@ -15,7 +16,6 @@
     <Folder Include="Application\OrderApplication\Queries\" />
     <Folder Include="Core\Contracts\" />
     <Folder Include="Core\Values\" />
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
 
 
