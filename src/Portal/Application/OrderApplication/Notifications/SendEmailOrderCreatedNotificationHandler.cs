@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.OrderApplication.Notifications
 {
-    class OrderCreatedNotificationHandler : INotificationHandler<OrderCreatedNotification>
+    class SendEmailOrderCreatedNotificationHandler : INotificationHandler<OrderCreatedNotification>
     {
         public Task Handle(OrderCreatedNotification notification, CancellationToken cancellationToken)
         {
