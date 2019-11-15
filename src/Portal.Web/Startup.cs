@@ -59,7 +59,7 @@ namespace Portal.Web
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
             services.AddScoped(typeof(IRequestPostProcessor<,>), typeof(CommitCommandPostProcessor<,>));
             services.AddTransient(typeof(IPipelineBehavior<CreateFoodCommand,OperationResult<CreateFoodCommandResult>>), typeof(CreateFoodSingleNameValidator));
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderRepository, SqlOrderRepository>();
             //services.AddProblemDetails(x =>
             //{
             //    x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));

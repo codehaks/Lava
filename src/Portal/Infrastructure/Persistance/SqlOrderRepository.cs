@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Portal.Infrastructure.Repository
 {
-    public class OrderRepository : IOrderRepository
+    public class SqlOrderRepository : IOrderRepository
     {
         private readonly PortalDbContext _db;
 
-        public OrderRepository(PortalDbContext db)
+        public SqlOrderRepository(PortalDbContext db)
         {
             _db = db;
         }
